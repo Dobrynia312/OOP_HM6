@@ -1,6 +1,5 @@
 package task1.controller;
 
-import task1.model.data.LearnGroupService;
 import task1.model.data.UserService;
 import task1.model.users.LearnGroup;
 import task1.model.users.Student;
@@ -12,26 +11,8 @@ import task1.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Controller {
-    public static LearnGroup groupCreator(List<User> students, List<User> teachers, int groupsID) {
-        LearnGroup group;
-        List<Student> gr = new ArrayList<>();
-        Teacher t = null;
-        for (User st : students
-        ) {
-            if (((Student) st).getGroupID() == groupsID) {
-                gr.add((Student) st);
-            }
-        }
-        for (User teacher : teachers
-        ) {
-            if (((Teacher) teacher).getGroups().contains(groupsID)) {
-                t = (Teacher) teacher;
-            }
-        }
-        group = LearnGroupService.groupCreate(t, gr);
-        return group;
-    }
+public class Controller implements CreateGroup{
+
 
     public static void Start() {
         UserService uS = new UserService();
@@ -62,8 +43,8 @@ public class Controller {
         System.out.println(View.studentView(users3));
         System.out.println("---");
 
-        LearnGroup newGroup1 = groupCreator(students, teachers, 5);
-        LearnGroup newGroup2 = groupCreator(students, teachers, 3);
+        LearnGroup newGroup1 = CreateGroup.groupCreator(students, teachers, 5);
+        LearnGroup newGroup2 = CreateGroup.groupCreator(students, teachers, 3);
 
         System.out.println(GroupView.groupView(newGroup1));
         System.out.println("---");
